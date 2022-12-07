@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+	<header>
+		{% include 'project/header.html' with profil=profil %}
+	</header>
+	<!-- SECTION GRISE TITRE-->
+	<div class=" section section-grise1" style="padding-top: 20px;"> 
+		<a class="cours-back" href="{% url 'home' %}">Retour</a>
+		<div class="separateur" style="margin-top: -12px;"></div>
+		<h1 class="cours">Contact</h1>
+	</div>
+		<!--Contact form-->	
+	<div class="section">
+		<div class="texte-avec-ligne-verticale">
+			<h4>Contactez-moi directement, si vous avez des questions.</h4>
+		</div>
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-8">
+					<p>
+						Veuillez écrire votre nom, votre adresse électronique et un message ci-dessous si vous avez des questions.</br>
+						Je me ferai un plaisir de vous contacter directement et de répondre à vos questions dans les meilleurs délais. 
+					</p>
+					{% if submitted %}
+					<div class="alert alert-success" role="alert">
+						Le message a bien été envoyé !
+					</div>
+					{% endif %}
+
+					<form method="post">
+						{% csrf_token %}
+						<div class="row">
+							<div class="col-6">
+								{{ form.first_name|as_crispy_field }}
+							</div>
+							<div class="col-6">
+								{{ form.last_name|as_crispy_field }}
+							</div>
+							</div>
+						{{ form.email_address|as_crispy_field }}
+						{{ form.message|as_crispy_field }}
+
+						<button type="submit" class="mt-2 btn btn-primary">Envoyer</button>
+					</form>
+				</div>
+		</div>
+    </div>
+
+{% endblock content %}

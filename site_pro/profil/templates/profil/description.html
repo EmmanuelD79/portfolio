@@ -1,0 +1,11 @@
+{% load static %}
+{% load project_extras %}
+
+<h2>En savoir plus</h2>
+<img src="{{ profil.description_img.url }}" alt="" class="col40">
+<div class="col60 float-right"> 
+    <div class="texte-avec-ligne-verticale">
+    {{ profil.description|convert_markdown|safe }}
+    <a href="#">En savoir plus sur mon profil</a>
+    </div>
+</div>

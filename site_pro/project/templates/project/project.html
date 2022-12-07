@@ -1,0 +1,20 @@
+{% load project_extras %}
+
+<!-- SECTION GRISE TITRE-->
+<div class=" section section-grise1" style="padding-top: 20px;"> 
+    <a class="cours-back" href="{% url 'home' %}">Retour</a>
+    <div class="separateur" style="margin-top: -12px;"></div>
+    <h1 class="cours">Projets</h1>
+    <h2 class="cours">{{ project.title }}</h2>
+    
+</div>
+
+<!-- SECTION CONTENU -->
+<div class="section">
+    <div class="texte-avec-ligne-verticale">
+        {{ project.description|convert_markdown|safe }}
+   </div>
+   <div class="cours-img" style="text-align: center; margin-top: 30px;" ><a href="#"><img src="{{ project.project_img.url }}" alt=""></a> 
+   </div>
+   <div align="center"><a href="#">Consulter le projet</a></div>
+</div>      

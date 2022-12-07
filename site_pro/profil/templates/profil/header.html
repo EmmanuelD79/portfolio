@@ -1,0 +1,28 @@
+{% load static %}
+
+{% include 'style.html' with profil=profil %}
+
+<div class='cover'>
+    <img class="cover-profile" src="{{ profil.photo.url }}" alt="">
+    <h1 class="fullname">
+       <span class="fond_noir">{{ profil.full_name }} {{ profil.last_name }}</span> 
+    </h1>
+
+    <p>
+        <span class="fond_noir">{{ profil.sub_title }}
+        </span> 
+    </p>
+    
+    <div style="text-align: center;">
+    <a class='bouton' href="{% url 'contact' %}">ME CONTACTER</a>
+    </div>
+
+    <div class="cover-contact">
+       <p> <a href="mailto: mon_email@gmail.com?subject?subject=Contact depuis le site">{{ profil.email }}</a></p>
+       <p><a href="">{{ profil.phone_number }}</a></p>
+    </div>
+</div>
+
+
+
+

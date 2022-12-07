@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!--COUVERTURE -->
+    <header>
+        {% include 'profil/header.html' with profil=profil %}
+    </header>
+
+    <!--SECTION GRISE 1 -->
+
+    <div class=" section section-grise1">
+        {% include 'profil/resume.html' with profil=profil %} 
+    </div>
+    <!-- SECTION BLANCHE-->
+    <div class="section">
+        {% include 'profil/description.html' with profil=profil %} 
+    </div>
+
+    <!-- SECTION GRISE 2-->
+
+    <div class="section section-grise2">
+        <h2>Projets</h2>
+        <div class="d-flex flex-column flex-md-row justify-content-around">
+        {% include 'profil/projects.html' with projects=projects %}
+        </div>
+    </div>
+{% endblock content %}
+

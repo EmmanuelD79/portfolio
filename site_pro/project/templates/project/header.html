@@ -1,0 +1,13 @@
+{% include 'style.html' with profil=profil %}
+
+<div class="cours-header">
+    <div class="texte-avec-ligne-verticale"
+        style="margin-left: 16px;margin-top: 20px; height: 45px; position: absolute;">
+
+        <p class="cours-header-title"> <span class="fond_noir">{{profil.full_name}} {{ profil.last_name }}</span></p>
+
+    </div>
+    <div style="text-align: center; position: absolute; right: 20px;">
+        <a class='bouton btn-actived' href="{% url 'contact' %}">ME CONTACTER</a>
+        </div>
+</div>
