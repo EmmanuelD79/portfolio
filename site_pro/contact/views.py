@@ -12,7 +12,7 @@ def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            subject = "Contact depuis le site"
+            subject = 'Contact depuis le site'
             body = {
                 'first_name': form.cleaned_data['first_name'],
                 'last_name': form.cleaned_data['last_name'],
@@ -23,7 +23,7 @@ def contact(request):
 
             try:
                 send_mail(subject, message, body['email'], [
-                          'admin@example.com'])
+                          profil.email])
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
             return HttpResponseRedirect('?submitted=True')

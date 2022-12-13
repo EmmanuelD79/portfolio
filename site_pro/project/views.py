@@ -4,10 +4,10 @@ from profil.models import Profil
 
 
 def project(request, pk):
-    
+
     project = Project.objects.get(pk=pk)
     profil = Profil.objects.first()
-    
+
     context = {
         'project': project,
         'profil': profil

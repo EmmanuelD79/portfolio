@@ -18,8 +18,16 @@
     </div>
 
     <div class="cover-contact">
-       <p> <a href="mailto: mon_email@gmail.com?subject?subject=Contact depuis le site">{{ profil.email }}</a></p>
-       <p><a href="">{{ profil.phone_number }}</a></p>
+        {% if profil.github_url %}
+            <p><a href="{{ profil.github_url }}"><img height="32" src="{% static '/img/github.svg' %}"/></a></p>
+        {% endif %}
+        {% if profil.linkedin_url %}
+            <p><a href="{{ profil.linkedin_url }}"><img height="32" src="{% static '/img/linkedin.svg' %}"/></a></p>
+        {% endif %}
+        {% if profil.twitter_url %}
+            <p><a href="{{ profil.twitter_url }}"><img height="32" src="{% static '/img/twitter.svg' %}"/></a></p>
+        {% endif %}
+
     </div>
 </div>
 

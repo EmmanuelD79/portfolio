@@ -11,3 +11,10 @@ register = template.Library()
 @stringfilter
 def convert_markdown(value):
     return markdown.markdown(value, extensions=['markdown.extensions.fenced_code'])
+
+
+@register.filter
+@stringfilter
+def slice_tel(value):
+    return value[1:]
+

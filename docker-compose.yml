@@ -1,27 +1,70 @@
 version: '3.7'
 
 services:
-  django_gunicorn:
+   django_gunicorn:
     volumes:
-      - static:/static
-      - media:/media
+      - static_volume:/app/static
+      - media_volume:/app/media
+      - database_volume:/app/database
     env_file:
       - .env
     build:
       context: .
     ports:
-      - "8000:8000"
-  nginx:
+      - 8000:8000
+    networks:
+      - nginx_network
+
+   nginx:
     build: ./nginx
     volumes:
-      - static:/static
-      - media:/media
+      - static_volume:/app/static
+      - media_volume:/app/media
+      - nginx_volume/conf/:/etc/nginx/conf.d/:ro
+      - certbot_volume/www/:/var/www/certbot/:ro
+      - certbot_volume/conf/:/etc/nginx/ssl/:ro
     ports:
-      - "80:80"
+      - 80:80
+    restart: always
     depends_on:
       - django_gunicorn
+    networks:
+      - nginx_network
+
+   certbot:
+    image: certbot/certbot:arm64v8-latest
+    volumes:
+      - certbot_volume/www/:/var/www/certbot/:rw
+      - certbot_volume/conf/:/etc/letsencrypt/:rw
+      - certbot_volume/conf/log/:/var/log/letsencrypt/:rw
+    depends_on:
+      - nginx
+      - django_gunicorn
+
+    networks:
+      - nginx_network
+
+networks:
+  nginx_network:
 
 volumes:
-  static:
-  media:
-  
+  static_volume:
+  media_volume:
+  certbot_volume:
+    driver: local
+    driver_opts:
+      type: none
+      device: ~/production/certbot/
+      o: bind
+  nginx_volume:
+    driver: local
+    driver_opts:
+      type: none
+      device: ~/production/nginx/
+      o: bind
+  database_volume:
+    driver: local
+    driver_opts:
+      type: none
+      device: ~/production/database/
+      o: bind

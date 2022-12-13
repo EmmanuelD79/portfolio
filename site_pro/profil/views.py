@@ -4,7 +4,7 @@ from project.models import Project
 
 
 def home(request):
-    
+
     profil = Profil.objects.first()
     projects = Project.objects.all()
     context = {
