@@ -1,15 +1,31 @@
+{% load static %}
 {% load project_extras %}
 
 <div class="frame">
     <p class="frame-title">Parlons de votre projet</p>
     <table style="width: 100%;">
         <tr>
-            <td valign="top" align="center"><img style="width: 100px; border-radius: 30%;" src="{{ profil.photo.url }}" alt=""></td>
+            <td valign="top" align="center"><img style="width: 100px; border-radius: 30%;" 
+                {% if profil.photo.url %}
+                    src="{{ profil.photo.url }}" 
+                {% else %}
+                    src="{% static 'img/default_profil.png' %}"
+                {% endif %}
+                    alt=""></td>
             <td><div class="texte-avec-ligne-verticale">
-            <p>{{ profil.footer_text }}<br><br>
+            <p>{% if profil.footer_text %}
+                    {{ profil.footer_text }}
+                {% else %}
+                    Ici, je tape l'appel à l'action pour mes clients.
+                {% endif %}
+                <br><br>
                 <a href="/contact/">Contactez-moi par email</a> 
-                ou directement par téléphone au <a href="tel:+33{{ profil.phone_number|slice_tel }}">{{ profil.phone_number }}</a>
-
+                ou directement par téléphone au 
+                {% if profil.phone_number %}
+                    <a href="tel:+33{{ profil.phone_number|slice_tel }}">{{ profil.phone_number }}</a>
+                {% else %}
+                    <a href="#">0102030405</a>
+                {% endif %}
             </p>
             </div>
             </td>

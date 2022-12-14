@@ -39,7 +39,11 @@
 						{{ form.email_address|as_crispy_field }}
 						{{ form.message|as_crispy_field }}
 
-						<button type="submit" class="mt-2 btn btn-primary">Envoyer</button>
+						<button type="submit" class="mt-2 btn btn-primary"
+							{% if not profil %}
+								disabled
+							{% endif %}
+							>Envoyer</button>
 					</form>
 				</div>
 		</div>

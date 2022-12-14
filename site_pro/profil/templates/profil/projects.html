@@ -1,12 +1,26 @@
-{% for project in projects %}
+{% load static %}
+{% if profil and projects %}
+    {% for project in projects %}
+        <table class="mb-4">
+            <tr>
+                <td><div class="barre-verticale"></div></td>
+                <td><a href="{% url 'view_project' project.pk %}"><img class="cours-img w-100" src="{{ project.project_img.url }}" alt=""></a></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td align="center"><a href="{% url 'view_project' project.pk %}">{{ project.title }}</a></td>
+            </tr>
+        </table>
+    {% endfor %}
+{% else %}
     <table class="mb-4">
         <tr>
             <td><div class="barre-verticale"></div></td>
-            <td><a href="{% url 'view_project' project.pk %}"><img class="cours-img w-100" src="{{ project.project_img.url }}" alt=""></a></td>
+            <td><a href="#"><img class="cours-img w-100" src="{% static 'img/default_img.png' %}" alt=""></a></td>
         </tr>
         <tr>
             <td></td>
-            <td align="center"><a href="{% url 'view_project' project.pk %}">{{ project.title }}</a></td>
+            <td align="center"><a href="#">Mon Super Projet</a></td>
         </tr>
     </table>
-{% endfor %}
+{% endif %}

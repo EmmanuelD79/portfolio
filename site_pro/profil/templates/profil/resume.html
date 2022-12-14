@@ -1,4 +1,8 @@
 {% load project_extras %}
 
 <div class="separateur"></div>
-<p>{{ profil.resume|convert_markdown|safe }}</p>
+{% if profil.resume %}
+    <p>{{ profil.resume|convert_markdown|safe }}</p>
+{% else %}
+    <p>Quelques mots pour présenter mon savoir faire.</p>
+{% endif %}

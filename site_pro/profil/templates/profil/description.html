@@ -2,10 +2,20 @@
 {% load project_extras %}
 
 <h2>En savoir plus</h2>
-<img src="{{ profil.description_img.url }}" alt="" class="col40">
+<img class="col40"
+    {% if profil.description_img.url %}
+        src="{{ profil.description_img.url }}" 
+    {% else %}
+        src="{% static 'img/default_img.png' %}" 
+    {% endif %}
+        alt="" >
 <div class="col60 float-right"> 
     <div class="texte-avec-ligne-verticale">
-    {{ profil.description|convert_markdown|safe }}
+        {% if profil.description %}
+            {{ profil.description|convert_markdown|safe }}
+        {% else %}
+            Une petite description à mon sujet !<br>
+        {% endif %}
     <a href="#">En savoir plus sur mon profil</a>
     </div>
 </div>

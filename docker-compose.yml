@@ -5,66 +5,40 @@ services:
     volumes:
       - static_volume:/app/static
       - media_volume:/app/media
-      - database_volume:/app/database
+      - ../database/:/app/database
     env_file:
       - .env
     build:
       context: .
     ports:
       - 8000:8000
-    networks:
-      - nginx_network
-
    nginx:
     build: ./nginx
     volumes:
       - static_volume:/app/static
       - media_volume:/app/media
-      - nginx_volume/conf/:/etc/nginx/conf.d/:ro
-      - certbot_volume/www/:/var/www/certbot/:ro
-      - certbot_volume/conf/:/etc/nginx/ssl/:ro
+      - ../nginx/conf/:/etc/nginx/conf.d/:ro
+      - ../certbot/www/:/var/www/certbot/:ro
+      - ../certbot/conf/:/etc/nginx/ssl/:ro
+
     ports:
       - 80:80
+      - 443:443
     restart: always
     depends_on:
       - django_gunicorn
-    networks:
-      - nginx_network
 
    certbot:
     image: certbot/certbot:arm64v8-latest
     volumes:
-      - certbot_volume/www/:/var/www/certbot/:rw
-      - certbot_volume/conf/:/etc/letsencrypt/:rw
-      - certbot_volume/conf/log/:/var/log/letsencrypt/:rw
+      - ../certbot/www/:/var/www/certbot/:rw
+      - ../certbot/conf/:/etc/letsencrypt/:rw
+      - ../certbot/conf/log/:/var/log/letsencrypt/:rw
     depends_on:
       - nginx
       - django_gunicorn
 
-    networks:
-      - nginx_network
-
-networks:
-  nginx_network:
-
 volumes:
   static_volume:
   media_volume:
-  certbot_volume:
-    driver: local
-    driver_opts:
-      type: none
-      device: ~/production/certbot/
-      o: bind
-  nginx_volume:
-    driver: local
-    driver_opts:
-      type: none
-      device: ~/production/nginx/
-      o: bind
-  database_volume:
-    driver: local
-    driver_opts:
-      type: none
-      device: ~/production/database/
-      o: bind
+  

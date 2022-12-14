@@ -26,6 +26,12 @@ div.cover p {
     margin-top: 4px;
 }
 
+div.cover_default p {
+    color: lightgray;
+    text-align: center;
+    margin-top: 4px;
+}
+
 img.cover-profile {
 
     height: 100px;
@@ -96,6 +102,11 @@ a.bouton {
     margin-top: 20px;
     font-size: 14px;
 
+}
+
+.mt_btn {
+    margin-top: 20px;
+    font-size: 14px;
 }
 
 a.bouton:hover {
@@ -283,7 +294,7 @@ a.cours-back {
         font-size: 25px;
     }
 
-    a.bouton {
+    .mt_btn {
         margin-top: 5px;
         font-size: 15px;
     }
