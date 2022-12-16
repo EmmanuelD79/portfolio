@@ -3,7 +3,7 @@
 
 <h2>En savoir plus</h2>
 <img class="col40"
-    {% if profil.description_img.url %}
+    {% if profil.description_img %}
         src="{{ profil.description_img.url }}" 
     {% else %}
         src="{% static 'img/default_img.png' %}" 
@@ -14,7 +14,7 @@
         {% if profil.description %}
             {{ profil.description|convert_markdown|safe }}
         {% else %}
-            Une petite description à mon sujet !<br>
+            Cette section permet au jeune diplomé de rédiger une biographie ou un résumé de son parcours professionel.<br>
         {% endif %}
     <a href="#">En savoir plus sur mon profil</a>
     </div>

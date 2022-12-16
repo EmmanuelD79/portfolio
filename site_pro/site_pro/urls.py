@@ -1,17 +1,17 @@
 from django.contrib import admin
-from django.urls import path
-from profil.views import home
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from project.views import project
-from contact.views import contact
+from profil.views import base
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home, name='home'),
-    path('<int:pk>', project, name='view_project'),
-    path('contact/', contact, name='contact'),
+    path('<slug:slug>/', include('profil.urls')),
+    path('', base, name='view_base'),
 ]
+
+handler500 = 'profil.views.error_500_view'
 
 if settings.DEBUG:
 

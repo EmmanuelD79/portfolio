@@ -5,9 +5,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from profil.models import Profil
 
 
-def contact(request):
+def contact(request, slug):
     submitted = False
-    profil = Profil.objects.first()
+    profil = Profil.objects.get(custom_url=slug)
 
     if request.method == 'POST':
         form = ContactForm(request.POST)

@@ -1,17 +1,19 @@
 {% load static %}
 {% if profil and projects %}
+    <div class="d-flex flex-column flex-md-row flex-wrap justify-content-center align-content-center">
     {% for project in projects %}
-        <table class="mb-4">
+        <table class="mx-3 my-3" style="width: 400px; min-width: 200px;">
             <tr>
-                <td><div class="barre-verticale"></div></td>
-                <td><a href="{% url 'view_project' project.pk %}"><img class="cours-img w-100" src="{{ project.project_img.url }}" alt=""></a></td>
+              <td><div class="barre-verticale"></div></td>
+                <td><a href="{% url 'profil:view_project' profil.custom_url project.project_slug %}"><img class="w-100" src="{{ project.project_img.url }}" alt=""></a></td>
             </tr>
             <tr>
                 <td></td>
-                <td align="center"><a href="{% url 'view_project' project.pk %}">{{ project.title }}</a></td>
+                <td align="center"><a href="{% url 'profil:view_project' profil.custom_url project.project_slug %}">{{ project.title }}</a></td>
             </tr>
         </table>
     {% endfor %}
+    </div>
 {% else %}
     <table class="mb-4">
         <tr>

@@ -26,6 +26,16 @@ div.cover p {
     margin-top: 4px;
 }
 
+.error-template {
+    background-color: #656565;
+    color: #f4f4f4;
+}
+
+div.page_error {
+    padding: 70px 15px;
+    text-align: center;
+}
+
 div.cover_default p {
     color: lightgray;
     text-align: center;
@@ -312,7 +322,7 @@ a.cours-back {
     }
 
     div.frame {
-        margin: 10px 6px;
+        margin: 5px 6px;
     
     }
 

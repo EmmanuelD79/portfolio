@@ -1,14 +1,13 @@
 {% load static %}
 
 {% include 'style.html' with profil=profil %}
-
-<div {% if profil.banner.url %}
+<div {% if profil.banner and profil.banner != None %}
         class='cover'
      {% else %}
         class='cover_default'
      {% endif %}>
     <img class="cover-profile" 
-        {% if profil.photo.url %}
+        {% if profil.photo %}
             src="{{ profil.photo.url }}"
         {% else %}
             src="{% static 'img/default_profil.png' %}"
@@ -19,7 +18,7 @@
         {% if profil.full_name %}
             {{ profil.full_name }} {{ profil.last_name }}
         {% else %}
-            Utilisateur
+            LE LAB-DEV
         {% endif %}
         </span> 
     </h1>
@@ -29,13 +28,19 @@
             {% if profil.sub_title %}
                 {{ profil.sub_title }}
             {% else %}
-                Créer votre profil utilisateur
+                Le site vitrine de vos projets de développement.
             {% endif %}
         </span> 
     </p>
     
     <div style="text-align: center;">
-    <a class='btn btn-outline-light' href="{% url 'contact' %}">ME CONTACTER</a>
+    <a class='btn btn-outline-light' 
+        {% if profil %}
+            href="{% url 'profil:view_contact' profil.custom_url %}"
+        {% else %}
+            href="#"
+        {% endif %}
+            >ME CONTACTER</a>
     </div>
 
     <div class="cover-contact">

@@ -3,11 +3,11 @@ from project.models import Project
 from profil.models import Profil
 
 
-def project(request, pk):
+def project(request, project_slug, slug):
 
-    project = Project.objects.get(pk=pk)
-    profil = Profil.objects.first()
-
+    profil = Profil.objects.get(custom_url=slug)
+    project = Project.objects.filter(user=profil).get(project_slug=project_slug)
+    
     context = {
         'project': project,
         'profil': profil

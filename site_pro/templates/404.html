@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -10,12 +11,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static '/css/style.css' %}">
 </head> 
-<body>
-    {% block content %}{% endblock content %}
-    <!-- SECTION BLANCHE-->
-    <div class="section">
-        {% include 'footer.html' with profil=profil %}
-    </div>
-
+<body class="error-template">
+    <div class="page_error alert alert-warning" role="alert">
+        <h1>Erreur 404.</h1>
+        <p>
+            <strong>Oooooops !</strong> <br>
+            On dirait que rien n'a été trouvé à cet endroit.<br>
+        </p>
+        <a href="{% url 'view_base' %}" class="btn btn-primary">Retour</a>	
+	</div>
 </body>
 </html>

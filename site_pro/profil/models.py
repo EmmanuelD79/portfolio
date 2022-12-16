@@ -5,6 +5,7 @@ class Profil(models.Model):
     full_name = models.CharField(max_length=100, blank=False)
     last_name = models.CharField(max_length=100, blank=False)
     email = models.EmailField(max_length=200, blank=False)
+    custom_url = models.SlugField(max_length=200, verbose_name='Url de la page', unique=True)
     phone_number = models.CharField(max_length=30, blank=True, null=True)
     photo = models.ImageField(
         upload_to='profil/', blank=True, null=True, verbose_name="Photo de profil")

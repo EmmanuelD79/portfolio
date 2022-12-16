@@ -2,7 +2,7 @@
 
 <!-- SECTION GRISE TITRE-->
 <div class=" section section-grise1" style="padding-top: 20px;"> 
-    <a class="cours-back" href="{% url 'home' %}">Retour</a>
+    <a class="cours-back" href="{% url 'profil:home' profil.custom_url %}">Retour</a>
     <div class="separateur" style="margin-top: -12px;"></div>
     <h1 class="cours">Projets</h1>
     <h2 class="cours">{{ project.title }}</h2>
@@ -14,7 +14,7 @@
     <div class="texte-avec-ligne-verticale">
         {{ project.description|convert_markdown|safe }}
    </div>
-   <div class="cours-img" style="text-align: center; margin-top: 30px;" ><a href="#"><img src="{{ project.project_img.url }}" alt=""></a> 
+   <div class="cours-img" style="text-align: center; margin-top: 30px;" ><a href="#"><img style="width: 400px; min-width: 200px;" src="{{ project.project_img.url }}" alt=""></a> 
    </div>
    <div align="center"><a href="#">Consulter le projet</a></div>
 </div>      
