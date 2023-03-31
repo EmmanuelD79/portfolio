@@ -14,7 +14,7 @@
     <div class="texte-avec-ligne-verticale">
         {{ project.description|convert_markdown|safe }}
    </div>
-   <div class="cours-img" style="text-align: center; margin-top: 30px;" ><a href="#"><img style="width: 400px; min-width: 200px;" src="{{ project.project_img.url }}" alt=""></a> 
+   <div class="cours-img" style="text-align: center; margin-top: 30px;" ><a href="{% if project.project_url %} {{ project.project_url }} {% else %} # {% endif %}"><img style="width: 400px; min-width: 200px;" src="{{ project.project_img.url }}" alt=""></a> 
    </div>
-   <div align="center"><a href="#">Consulter le projet</a></div>
+   <div align="center"><a href="{% if project.project_url %} {{project.project_url}} {% else %} # {% endif %}">Consulter le projet</a></div>
 </div>      
