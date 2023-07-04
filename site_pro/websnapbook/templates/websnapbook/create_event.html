@@ -1,0 +1,10 @@
+{% extends 'websnapbook.html' %}
+
+{% block content %}
+    <h1>Créer un événement</h1>
+    <form action="{% url 'websnapbook:create_event' %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_div }}
+        <button type="submit">Créer</button>
+    </form>
+{% endblock %}

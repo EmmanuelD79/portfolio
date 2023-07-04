@@ -1,0 +1,42 @@
+{% extends 'websnapbook.html' %}
+{% load static %}
+
+{% block content %}
+  <div>
+
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <a class="navbar-logo" href="#">Websnapbook</a>
+      </div>
+      <ul class="navbar-menu">
+        <li><a href="#">Accueil</a></li>
+        <li><a href="#">Invités</a></li>
+        <li><a href="#">Photos</a></li>
+      </ul>
+    </nav>
+      <h2>{{ event.name }}</h2>
+      <h2>Date: {{ event.date }}</h2>
+      <div>
+        <img src='{{ event.qrcode }}' >
+      </div>
+        <div class="guest-list">
+          <h2>Liste des invités</h2>
+          <ul class="guests">
+            {% for guest in guests %}
+            <li>{{guest.email}} - {{guest.username}}</li>
+            {% empty %}
+              <p>Aucun invitée pour le moment.</p>
+            {% endfor %} 
+          </ul>
+        </div>
+        <div class="guest-form">
+          <h2>Ajouter un invité</h2>
+          <form method="post">
+            {% csrf_token %}
+            {{ form.as_table }}
+            <button type="submit">Ajouter</button>
+          </form>
+        </div>
+
+  </div>
+{% endblock %}

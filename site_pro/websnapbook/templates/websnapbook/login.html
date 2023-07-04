@@ -1,0 +1,19 @@
+{% extends 'websnapbook.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="login">
+      <h4>Se connecter</h4>
+      <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="submit-button">
+            Se connecter
+          </button>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

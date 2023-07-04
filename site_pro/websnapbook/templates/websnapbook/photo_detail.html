@@ -1,0 +1,58 @@
+{% extends 'websnapbook.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div>
+    <a href="{% url 'websnapbook:event_detail' photo.event.token %}" class="back-link">
+        <span class="icon" data-feather="arrow-left"></span>
+    </a>
+    <div class="container">
+        <div class="photo">
+            <img src="{{ photo.image.url }}" alt="Photo">
+        </div>
+        <div class="text">
+            <div class="comment-header">
+                <p>{{ photo.uploader }}</p>
+                <p>{{ photo.uploaded_at }}</p>
+            </div>
+            <p>
+                <a href="{% url 'websnapbook:like_photo' photo.id %}" class="like-link">
+                    {% if request.user in photo.likes.all %}
+                    <i class="fa fa-thumbs-up" style="font-size:24px"></i>
+                    {% else %}
+                    <i class="fa fa-thumbs-o-up" style="font-size:24px"></i>
+                    {% endif %}
+                </a>{{ photo.likes.count }}
+            </p>
+            {% if photo.comment_set.all.count > 0 %}
+                <p>{{ photo.comment_set.all.count }} commentaire{{ photo.comment_set.all.count|pluralize:"s" }}</p>
+            {% endif %}
+            <div class="comments-container">
+            {% for comment in photo.comment_set.all %}
+                <div class="comment">
+                    <div class="comment-content">
+                        <p class="username">{{ comment.commenter }}
+                            <span class="content">{{ comment.text }}</span>
+                        </p>
+                        <p class="timestamp">{{ comment.commented_at }}</p>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="no-comments">Aucun commentaire pour cette photo.</p>
+            {% endfor %}
+            </div>
+            <form method="post">
+              {% csrf_token %}
+              {{ form.as_p }}
+              <button type="submit" class="submit-button">
+                <i class="icon"></i>
+              </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
