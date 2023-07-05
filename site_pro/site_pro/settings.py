@@ -19,12 +19,14 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['lelab-dev.freeboxos.fr', 'www.lelab-dev.freeboxos.fr']
+CSRF_TRUSTED_ORIGINS = ['https://lelab-dev.freeboxos.fr', 'https://www.lelab-dev.freeboxos.fr']
 
 if not DEBUG:
-    SECURE_SSL_REDIRECT = True
-    SESSION_COOKIE_SECURE = True
+    SECURE_SSL_REDIRECT = False
+    SESSION_COOKIE_SECURE = False
     CSRF_COOKIE_SECURE = True
+
 
 # Application definition
 
@@ -42,6 +44,13 @@ INSTALLED_APPS += [
     'project',
     'contact',
     'crispy_forms',
+    'websnapbook',
+]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'websnapbook.assets.custom_login.GuestBackend',
+
 ]
 
 

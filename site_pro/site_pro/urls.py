@@ -7,6 +7,7 @@ from profil.views import base
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('websnapbook/', include('websnapbook.urls')),
     path('<slug:slug>/', include('profil.urls')),
     path('', base, name='view_base'),
 ]
