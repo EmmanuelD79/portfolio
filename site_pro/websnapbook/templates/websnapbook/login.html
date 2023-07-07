@@ -4,14 +4,16 @@
 {% block content %}
 
     <div class="login">
-      <h4>Se connecter</h4>
-      <form method="post">
-          {% csrf_token %}
-          {{ form.as_p }}
-          <button type="submit" class="submit-button">
-            Se connecter
-          </button>
+      <div class="login__container">
+        <h4>Websnapbook</h4>
+        <form class='flex__column--center' method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">
+              Se connecter
+            </button>
         </form>
+      </div>
     </div>
 </div>
 

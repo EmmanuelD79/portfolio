@@ -1,10 +1,15 @@
 {% extends 'websnapbook.html' %}
 
 {% block content %}
-  <h2>Télécharger une photo</h2>
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Télécharger</button>
-  </form>
+  <div class='upload_photo_container'>
+    <h2>Télécharger une photo</h2>
+    <div>
+      <a class="back-link" href="{% url 'websnapbook:event_photos' event.token %}">Retour</a>
+   </div>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Télécharger</button>
+    </form>
+  </div>
 {% endblock %}

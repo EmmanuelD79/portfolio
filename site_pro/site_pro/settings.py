@@ -3,7 +3,8 @@ import environ
 
 
 env = environ.Env(
-    DEBUG=(bool, False)
+    DEBUG=(bool, False),
+    MODE=(str, 'developpement')
 )
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -18,9 +19,12 @@ SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
+MODE = env('MODE')
 
-ALLOWED_HOSTS = ['lelab-dev.freeboxos.fr', 'www.lelab-dev.freeboxos.fr']
-CSRF_TRUSTED_ORIGINS = ['https://lelab-dev.freeboxos.fr', 'https://www.lelab-dev.freeboxos.fr']
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+
+if MODE != "developpement":
+    CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS')
 
 if not DEBUG:
     SECURE_SSL_REDIRECT = False

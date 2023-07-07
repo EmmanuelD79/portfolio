@@ -3,20 +3,20 @@
 {% load i18n %}
 
 {% block content %}
-<div>
-    <a href="{% url 'websnapbook:event_detail' photo.event.token %}" class="back-link">
-        <span class="icon" data-feather="arrow-left"></span>
-    </a>
+<div class="photo-detail-container">
+    <div>
+        <a class="back-link" href="{% url 'websnapbook:event_photos' photo.event.token %}">Retour</a>
+    </div>
     <div class="container">
+        <div class="comment-header">
+            <div class="comment-info">{{ photo.uploader }}</div>
+            <div class="comment-info">{{ photo.uploaded_at }}</div>
+        </div>
         <div class="photo">
             <img src="{{ photo.image.url }}" alt="Photo">
         </div>
         <div class="text">
-            <div class="comment-header">
-                <p>{{ photo.uploader }}</p>
-                <p>{{ photo.uploaded_at }}</p>
-            </div>
-            <p>
+            <p class='like-info'>
                 <a href="{% url 'websnapbook:like_photo' photo.id %}" class="like-link">
                     {% if request.user in photo.likes.all %}
                     <i class="fa fa-thumbs-up" style="font-size:24px"></i>
@@ -45,14 +45,11 @@
             <form method="post">
               {% csrf_token %}
               {{ form.as_p }}
-              <button type="submit" class="submit-button">
-                <i class="icon"></i>
+              <button class="button" type="submit" class="submit-button">
+                envoyer
               </button>
             </form>
         </div>
     </div>
 </div>
-
-
-
 {% endblock %}

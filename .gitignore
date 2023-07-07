@@ -5,3 +5,4 @@ env/
 db.sqlite3
 site_pro/media/*
 **/.DS_Store
+.vscode/

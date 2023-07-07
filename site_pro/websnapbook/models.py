@@ -122,25 +122,25 @@ class Photo(models.Model):
     image = models.ImageField(upload_to='photos')
     uploaded_at = models.DateTimeField(auto_now_add=True,)
     likes = models.ManyToManyField(
-        User, related_name='liked_photos', blank=True)
+        Guest, related_name='liked_photos', blank=True)
 
     class Meta:
         verbose_name = "Photo"
-        ordering = ('uploaded_at',)
+        ordering = ('-uploaded_at',)
 
     def __str__(self) -> str:
         return f'Photo uploaded by {self.uploader.username}'
 
-    def toggle_like(self, user):
+    def toggle_like(self, guest):
         """
         Toggle the like status for the given user.
         If the user has already liked the photo, remove the like.
         If the user has not liked the photo, add the like.
         """
-        if user in self.likes.all():
-            self.likes.remove(user)
+        if guest in self.likes.all():
+            self.likes.remove(guest)
         else:
-            self.likes.add(user)
+            self.likes.add(guest)
 
 
 class Comment(models.Model):

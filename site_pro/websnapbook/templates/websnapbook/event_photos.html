@@ -2,41 +2,75 @@
 {% load static %}
 
 {% block content %}
-  <h2>{{ event.name }}</h2>
-  <h2>Date: {{ event.date }}</h2>
-
-  <div class="grid">
-    <div class="grid-sizer"></div>
-    {% for photo in photos %}
-      <div class="grid-item">
-        <a href="{% url 'websnapbook:photo_detail' photo.id %}">
-          <img src="{{ photo.image.url }}" alt="Photo">
-          <div class="overlay">
-            <div class="comment-header">
-              <p>{{ photo.uploader }}</p>
-              <p>{{ photo.uploaded_at }}</p>
+  <div class="event_container">
+     <div class="logo">
+        <h1>websnapbook</h1>
+     </div>
+     <div>
+       <div class="event_name">
+          <h2>{{ event.name }} - {{ event.date }}</h2>
+       </div>
+       <div>
+          <a class="button" href="{% url 'websnapbook:upload_photo' event.token %}">Ajouter des photos</a>
+       </div>
+     </div>
+     <div id="photo-container">
+        {% for photo in photos %}
+          <div class="photo-entry">
+            <a href="{% url 'websnapbook:photo_detail' photo.id %}">
+              <img src="{{ photo.image.url }}" alt="Photo">
+              <div class="overlay">
+                <div class="overlay-content">
+                  <p>{{ photo.uploader }}</p>
+                  <p>{{ photo.uploaded_at }}</p>
+                </div>
+              </div>
+            </a>
           </div>
-          </div>
-        </a>
-      </div>
-    {% empty %}
-      <p>Aucune photo pour le moment.</p>
-    {% endfor %}
+        {% empty %}
+          <p>Aucune photo pour le moment.</p>
+        {% endfor %}
+     </div>
   </div>
-  <h4>Ajouter une photo</h4>
-  <a href="{% url 'websnapbook:upload_photo' event.id %}">Envoyer une photo</a>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
   <script>
-    document.addEventListener("DOMContentLoaded", function(event) {
-      var grid = document.querySelector('.grid');
-      var masonry = new Masonry(grid, {
-        itemSelector: '.grid-item',
-        columnWidth: '.grid-sizer',
-        percentPosition: true
-      });
-    });
-  </script>
-  
+    function loadMorePhotos() {
+      var photoContainer = document.getElementById('photo-container');
+      var photoEntries = photoContainer.getElementsByClassName('photo-entry');
+      var visiblePhotoCount = Math.min(photoEntries.length, 5);
 
+      for (var i = 0; i < visiblePhotoCount; i++) {
+        photoEntries[i].classList.add('visible');
+      }
+    }
+
+    function handleScroll() {
+      var photoContainer = document.getElementById('photo-container');
+      var photoEntries = photoContainer.getElementsByClassName('photo-entry');
+      var lastVisiblePhotoIndex = -1;
+
+      for (var i = 0; i < photoEntries.length; i++) {
+        if (photoEntries[i].classList.contains('visible')) {
+          lastVisiblePhotoIndex = i;
+        }
+      }
+
+      if (lastVisiblePhotoIndex > -1 && lastVisiblePhotoIndex < photoEntries.length - 1) {
+        var scrollPosition = window.innerHeight + window.scrollY;
+        var lastVisiblePhotoPosition = photoEntries[lastVisiblePhotoIndex].offsetTop + photoEntries[lastVisiblePhotoIndex].offsetHeight;
+
+        if (scrollPosition >= lastVisiblePhotoPosition) {
+          var nextVisiblePhotoIndex = lastVisiblePhotoIndex + 1;
+          var visiblePhotoCount = Math.min(nextVisiblePhotoIndex + 5, photoEntries.length);
+
+          for (var j = nextVisiblePhotoIndex; j < visiblePhotoCount; j++) {
+            photoEntries[j].classList.add('visible');
+          }
+        }
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('load', loadMorePhotos);
+  </script>
 {% endblock %}

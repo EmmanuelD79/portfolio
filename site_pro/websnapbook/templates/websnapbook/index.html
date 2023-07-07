@@ -2,7 +2,17 @@
 {% load static %}
 
 {% block content %}
-    <div>
-        <p> hello {{ request.user }} </p>
+    <div class='box_container'>
+        <div class="flex__column--center">
+            <p> Bienvenue {{ request.user }} ! </p>
+            <ul>
+            {% for event in events %}
+
+                <li><a href="{% url 'websnapbook:event_photos' event.token %}">{{ event.name }}</a></li>
+
+            {% endfor %}
+            </ul>
+        </div>
+
     </div
 {% endblock %}

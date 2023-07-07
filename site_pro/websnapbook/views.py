@@ -178,4 +178,12 @@ def login_view(request):
 # @login_required(login_url="/websnapbook/login/")
 @guest_required(redirect_to="/websnapbook/login/")
 def index_view(request):
-    return render(request, 'websnapbook/index.html')
+    
+    guest = Guest.objects.get(email=request.user.email)
+    events = guest.events.all()
+    
+    context = {
+        'events': events,
+    }
+    
+    return render(request, 'websnapbook/index.html', context)
